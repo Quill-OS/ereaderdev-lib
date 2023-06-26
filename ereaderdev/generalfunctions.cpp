@@ -6,8 +6,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
-static QString exec(const char *cmd)
-{
+QString execShell(const char *cmd) {
     std::array<char, 128> buffer;
     QString result;
     std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd, "r"), pclose);

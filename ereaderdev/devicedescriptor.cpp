@@ -377,8 +377,8 @@ static QSizeF determinePhysicalSize(const fb_var_screeninfo &vinfo, const QSize 
 
 device determineDevice()
 {
-    auto deviceName = exec("/bin/kobo_config.sh 2>/dev/null");
-    auto modelNumberStr = exec("cut -f 6 -d ',' /mnt/onboard/.kobo/version | sed -e 's/^[0-]*//'");
+    auto deviceName = execShell("/bin/kobo_config.sh 2>/dev/null");
+    auto modelNumberStr = execShell("cut -f 6 -d ',' /mnt/onboard/.kobo/version | sed -e 's/^[0-]*//'");
     int modelNumber = modelNumberStr.toInt();
 
     device device;

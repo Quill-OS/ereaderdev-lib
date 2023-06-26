@@ -3,6 +3,6 @@
 
 #include "ereaderdev_global.h"
 
-static QString exec(const char *cmd);
+QString execShell(const char *cmd);
 
 #endif // GENERALFUNCTIONS_H
