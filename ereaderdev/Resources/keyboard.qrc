@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>keyboard/backspace.png</file>
+        <file>keyboard/send.svg</file>
+    </qresource>
+</RCC>

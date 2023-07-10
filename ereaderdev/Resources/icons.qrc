@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/close.png</file>
+        <file>icons/confirm.svg</file>
+        <file>icons/left.svg</file>
+        <file>icons/right.svg</file>
+    </qresource>
+</RCC>

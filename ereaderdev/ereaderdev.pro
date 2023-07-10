@@ -1,5 +1,3 @@
-QT -= gui
-
 TEMPLATE = lib
 DEFINES += EREADERDEV_LIBRARY
 
@@ -24,6 +22,25 @@ HEADERS += \
     ereaderdev_global.h \
     generalfunctions.h
 
+# Gui
+QT += \
+    core \
+    gui \
+    widgets
+
+SOURCES += \
+    gui/smallkeyboard.cpp
+
+HEADERS += \
+    gui/smallkeyboard.h
+
+FORMS += \
+    gui/smallkeyboard.ui
+
+RESOURCES += \
+    Resources/icons.qrc \
+    Resources/keyboard.qrc
+
 # Default rules for deployment.
 unix {
     target.path = /usr/lib
@@ -35,3 +52,5 @@ OBJECTS_DIR = build/.obj
 MOC_DIR = build/.moc
 RCC_DIR = build/.rcc
 UI_DIR = build/.ui
+
+
