@@ -47,6 +47,8 @@ void smallkeyboard::start(QObject* textEditorToAdd) {
 
         textEdit = textEditor;
         isTextEdit = true;
+
+        ui->Button_Confirm->setIcon(QIcon(":/keyboard/send.svg"));
     }
     else {
         // Invalid widget type
