@@ -31,6 +31,9 @@ public:
     QString editedString;
     QChar cursorCharacter = '|';
 
+    void dontExit();
+    bool dontExitBool = false;
+
 signals:
     void closeButton();
 

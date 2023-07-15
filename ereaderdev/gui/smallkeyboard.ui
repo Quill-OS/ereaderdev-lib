@@ -370,7 +370,7 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="../Resources/keyboard.qrc">
+        <iconset>
          <normaloff>:/keyboard/backspace.png</normaloff>:/keyboard/backspace.png</iconset>
        </property>
       </widget>
@@ -438,10 +438,6 @@
        <property name="text">
         <string/>
        </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>:/icons/close.png</normaloff>:/icons/close.png</iconset>
-       </property>
       </widget>
      </item>
      <item row="3" column="9">
@@ -454,10 +450,6 @@
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>:/icons/confirm.svg</normaloff>:/icons/confirm.svg</iconset>
        </property>
       </widget>
      </item>
@@ -491,8 +483,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../Resources/keyboard.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

@@ -38,7 +38,6 @@ FORMS += \
     gui/smallkeyboard.ui
 
 RESOURCES += \
-    Resources/icons.qrc \
     Resources/keyboard.qrc
 
 # Default rules for deployment.

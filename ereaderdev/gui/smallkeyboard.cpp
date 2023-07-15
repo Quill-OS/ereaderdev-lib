@@ -33,6 +33,9 @@ void smallkeyboard::start(QObject* textEditorToAdd) {
         mainString = textEditor->text();
         textEditor->setSelection(0,0);
         textEditor->setCursorPosition(textEditor->text().length());
+        ui->Button_Cancel->setIcon(QIcon(":/icons/close.png"));
+        // No idea icons had problems
+        ui->Button_Confirm->setIcon(QIcon(":/icons/confirm.svg"));
 
         lineEdit = textEditor;
         isLineEdit = true;
@@ -54,6 +57,10 @@ void smallkeyboard::start(QObject* textEditorToAdd) {
         // Invalid widget type
         qDebug() << "Invalid widget type";
     }
+}
+
+void smallkeyboard::dontExit() {
+    dontExitBool = true;
 }
 
 void smallkeyboard::updateString(QString new_string)
@@ -204,7 +211,7 @@ void smallkeyboard::on_Button_Special_clicked()
         ui->Button_Special->setStyleSheet("font-weight: normal");
         if(isLineEdit) {
             ui->Button_Cancel->setIcon(QIcon(":/icons/close.png"));
-            ui->Button_Confirm->setIcon(QIcon(":/icons/confirm.svg"));
+            ui->Button_Confirm->setIcon(QIcon("://icons/confirm.svg"));
         } else if(isTextEdit) {
             ui->Button_Cancel->setIcon(QIcon(":/icons/close.png"));
             ui->Button_Confirm->setIcon(QIcon(":/keyboard/send.svg"));
@@ -228,11 +235,13 @@ void smallkeyboard::on_Button_Cancel_clicked()
         qDebug() << "Cursor backwards";
         if(isLineEdit) {
             int cursorPosition = lineEdit->cursorPosition() - 1;
+            if(cursorPosition < 0) {
+                return void();
+            }
             lineEdit->setText(lineEdit->text().replace(cursorCharacter, ""));
 
             lineEdit->setText(lineEdit->text().insert(cursorPosition, cursorCharacter));
             lineEdit->setCursorPosition(cursorPosition);
-            this->close();
         }
     } else {
         if(isLineEdit) {
@@ -244,7 +253,9 @@ void smallkeyboard::on_Button_Cancel_clicked()
             }
             lineEdit->setText(newText);
         }
-        this->close();
+        if(dontExitBool == false) {
+            this->close();
+        }
     }
 }
 
@@ -261,7 +272,11 @@ void smallkeyboard::on_Button_Confirm_clicked()
     if(special == true) {
         if(isLineEdit) {
             int cursorPosition = lineEdit->cursorPosition() + 1;
+            if(cursorPosition < 0) {
+                return void();
+            }
             lineEdit->setText(lineEdit->text().replace(cursorCharacter, ""));
+
 
             lineEdit->setText(lineEdit->text().insert(cursorPosition, cursorCharacter));
             lineEdit->setCursorPosition(cursorPosition);
@@ -275,7 +290,9 @@ void smallkeyboard::on_Button_Confirm_clicked()
             }
             lineEdit->setText(newText);
         }
-        this->close();
+        if(dontExitBool == false) {
+            this->close();
+        }
     }
 }
 
