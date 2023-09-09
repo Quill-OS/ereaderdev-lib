@@ -6,6 +6,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
+// This may not work in inkbox user apps?
 QString execShell(const char *cmd) {
     std::array<char, 128> buffer;
     QString result;

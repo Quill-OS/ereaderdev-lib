@@ -1,10 +1,23 @@
 #include "devicedescriptor.h"
 
 #include "generalfunctions.h"
+#include <QDebug>
 
 #include <linux/fb.h>
 
 namespace ereaderdev {
+
+// Unknown
+device KoboUnknown = {
+    .name = unknownName,
+    .model = unknownModel,
+    .codeName = unknownCodeName,
+    .mark = 4,
+    .dpi = 200,
+    .hasKeys = true,
+    .touchscreenSettings = {.swapXY = false, .hasMultitouch = false},
+    .frontlightSettings = {.hasFrontLight = false},
+};
 
 // Kobo Touch A/B:
 device KoboTrilogyAB = {
@@ -259,6 +272,7 @@ device KoboLuna = {
     {
         .hasReadWhitefrontlight = true,
         .frontlightDevWhiteRead = "/sys/class/backlight/mxc_msp430.0/actual_brightness",
+        .frontlightDevWhite = "/sys/class/backlight/mxc_msp430.0/brightness"
     },
 };
 
@@ -377,7 +391,13 @@ static QSizeF determinePhysicalSize(const fb_var_screeninfo &vinfo, const QSize 
 
 device determineDevice()
 {
-    auto deviceName = execShell("/bin/kobo_config.sh 2>/dev/null");
+    QString deviceName;
+    if(QFile("/bin/kobo_config.sh").exists() == false) {
+        qDebug() << "No /bin/kobo_config.sh script, trying DEVICE_CODENAME variable";
+        deviceName = QString::fromLocal8Bit(qgetenv("DEVICE_CODENAME"));
+    } else {
+        deviceName = execShell("/bin/kobo_config.sh 2>/dev/null");
+    }
     auto modelNumberStr = execShell("cut -f 6 -d ',' /mnt/onboard/.kobo/version | sed -e 's/^[0-]*//'");
     int modelNumber = modelNumberStr.toInt();
 
@@ -387,7 +407,7 @@ device determineDevice()
         if (modelNumber == 310)
             device = KoboTrilogyAB;
         else  // if (modelNumber == 320)
-            device = KoboTrilogyC;
+            device = KoboTrilogyC; // I Hope this works and it's not the else at the end
     }
     else if (deviceName == "pixie")
     {
@@ -469,7 +489,7 @@ device determineDevice()
     }
     else
     {
-        device = KoboTrilogyC;
+        device = KoboUnknown;
     }
 
     QString fbDevice = QLatin1String("/dev/fb0");
