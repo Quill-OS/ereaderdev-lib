@@ -259,6 +259,7 @@ device KoboLuna = {
     {
         .hasReadWhitefrontlight = true,
         .frontlightDevWhiteRead = "/sys/class/backlight/mxc_msp430.0/actual_brightness",
+        .frontlightDevWhite = "/sys/class/backlight/mxc_msp430.0/brightness",
     },
 };
 
@@ -377,7 +378,13 @@ static QSizeF determinePhysicalSize(const fb_var_screeninfo &vinfo, const QSize 
 
 device determineDevice()
 {
-    auto deviceName = execShell("/bin/kobo_config.sh 2>/dev/null");
+    QString deviceName;
+    if(QFile("/bin/kobo_config.sh").exists() == true) {
+        deviceName = execShell("/bin/kobo_config.sh 2>/dev/null");
+    } else {
+        deviceName = qgetenv("DEVICE_CODENAME");
+    }
+
     auto modelNumberStr = execShell("cut -f 6 -d ',' /mnt/onboard/.kobo/version | sed -e 's/^[0-]*//'");
     int modelNumber = modelNumberStr.toInt();
 
