@@ -23,7 +23,7 @@ void setWhiteBrightness(device* dev, int value) {
         qDebug() << "Writed the stream";
 
         bool error = false;
-        if (out.status() != QDataStream::Ok) {
+        if (out.status() != QTextStream::Ok) {
             error = true;
             qDebug() << "Error writing to file. Status: " << out.status();
         }
