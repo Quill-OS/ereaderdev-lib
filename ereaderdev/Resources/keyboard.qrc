@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>keyboard/backspace.png</file>
+        <file>keyboard/send.svg</file>
+        <file>icons/confirm.svg</file>
+        <file>icons/close.png</file>
+        <file>icons/left.svg</file>
+        <file>icons/right.svg</file>
+    </qresource>
+</RCC>

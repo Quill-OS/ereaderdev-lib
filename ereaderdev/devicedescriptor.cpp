@@ -1,10 +1,23 @@
 #include "devicedescriptor.h"
 
 #include "generalfunctions.h"
+#include <QDebug>
 
 #include <linux/fb.h>
 
 namespace ereaderdev {
+
+// Unknown
+device KoboUnknown = {
+    .name = unknownName,
+    .model = unknownModel,
+    .codeName = unknownCodeName,
+    .mark = 4,
+    .dpi = 200,
+    .hasKeys = true,
+    .touchscreenSettings = {.swapXY = false, .hasMultitouch = false},
+    .frontlightSettings = {.hasFrontLight = false},
+};
 
 // Kobo Touch A/B:
 device KoboTrilogyAB = {
@@ -394,7 +407,7 @@ device determineDevice()
         if (modelNumber == 310)
             device = KoboTrilogyAB;
         else  // if (modelNumber == 320)
-            device = KoboTrilogyC;
+            device = KoboTrilogyC; // I Hope this works and it's not the else at the end
     }
     else if (deviceName == "pixie")
     {
@@ -476,7 +489,7 @@ device determineDevice()
     }
     else
     {
-        device = KoboTrilogyC;
+        device = KoboUnknown;
     }
 
     QString fbDevice = QLatin1String("/dev/fb0");

@@ -68,6 +68,7 @@ void setWhiteBrightness(device* dev, int value) {
     }
     else {
         qDebug() << "Setting brightness via ioctl";
+        qDebug() << "Using NTX ioctl to set brightness";
         ioctl(device, 241, value);
         close(device);
     }
@@ -75,13 +76,13 @@ void setWhiteBrightness(device* dev, int value) {
 
 int getWhiteBrightness(device* dev) {
     if(dev->frontlightSettings.hasReadWhitefrontlight == true) {
-        QFile brightnessFileDev;
-        brightnessFileDev.setFileName(dev->frontlightSettings.frontlightDevWhiteRead);
+        QFile brightnessFileDev(dev->frontlightSettings.frontlightDevWhiteRead);
         if (!brightnessFileDev.open(QIODevice::ReadOnly)) {
             return -1;
         }
         // TODO: add below and above checks
         QString readed = brightnessFileDev.readAll().trimmed();
+        qDebug() << "Readed brightness" << readed;
         brightnessFileDev.close();
         return readed.toInt();
     }
